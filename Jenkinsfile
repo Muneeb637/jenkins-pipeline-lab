@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    parameters {
+    booleanParam(name: 'executeTests', defaultValue: true)
+  }
     /* Step: Add Maven build tool */
     tools {
         maven 'maven'   // This name MUST match Jenkins Tools configuration
