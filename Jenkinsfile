@@ -1,25 +1,36 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        echo 'Building..'
-      }
+    agent any
+
+    /* Environment Variables step */
+    environment {
+        VERSION = '1.0.0'
+        APP_NAME = 'MyJenkinsApp'
     }
-    stage('Test') {
-      steps {
-        echo 'Testing..'
-      }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo "Building version ${VERSION} of ${APP_NAME}..."
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Testing version ${VERSION}..."
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying ${APP_NAME} version ${VERSION}..."
+            }
+        }
     }
-    stage('Deploy') {
-      steps {
-        echo 'Deploying..'
-      }
+
+    post {
+        always {
+            echo "Pipeline Completed (version ${VERSION})"
+        }
     }
-  }
-  post {
-    always {
-      echo 'Pipeline Completed'
-    }
-  }
 }
